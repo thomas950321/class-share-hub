@@ -95,14 +95,14 @@ export default function CourseDialog({
     const day = parseInt(dayOfWeek);
     const start = parseInt(startPeriod);
     const end = parseInt(endPeriod);
-    
+
     return existingCourses.filter((c) => {
       // Skip the current course being edited
       if (course && c.id === course.id) return false;
-      
+
       // Check if same day and periods overlap
       if (c.day_of_week !== day) return false;
-      
+
       // Periods overlap if: start1 <= end2 AND end1 >= start2
       return start <= c.end_period && end >= c.start_period;
     });
@@ -112,7 +112,7 @@ export default function CourseDialog({
 
   const handleSave = () => {
     if (!name.trim()) return;
-    
+
     onSave({
       name: name.trim(),
       teacher: teacher.trim() || null,
@@ -127,7 +127,7 @@ export default function CourseDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[325px] rounded-lg">
         <DialogHeader>
           <DialogTitle>{course ? '編輯課程' : '添加課程'}</DialogTitle>
         </DialogHeader>

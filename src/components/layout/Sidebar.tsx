@@ -30,15 +30,17 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile menu button - fixed position, doesn't move with sidebar */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="fixed top-4 left-4 z-[100] lg:hidden bg-background/80 backdrop-blur-sm shadow-sm"
-        onClick={() => setMobileOpen(!mobileOpen)}
-      >
-        {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </Button>
+      {/* Mobile menu button - visible only when sidebar is closed */}
+      {!mobileOpen && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="fixed top-4 left-4 z-[100] lg:hidden bg-background/80 backdrop-blur-sm shadow-sm"
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
+      )}
 
       {/* Overlay */}
       {mobileOpen && (
@@ -56,9 +58,19 @@ export default function Sidebar() {
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex flex-col h-full p-4">
+        <div className="flex flex-col h-full p-4 relative">
+          {/* Close button for mobile */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4 lg:hidden text-muted-foreground hover:text-foreground"
+            onClick={() => setMobileOpen(false)}
+          >
+            <X className="h-5 w-5" />
+          </Button>
+
           {/* Logo */}
-          <div className="flex items-center gap-3 px-4 py-4 mb-6">
+          <div className="flex items-center gap-3 px-2 py-4 mb-6">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <Calendar className="w-5 h-5 text-primary" />
             </div>
